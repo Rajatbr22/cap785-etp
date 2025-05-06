@@ -6,15 +6,13 @@
   <title>GA4 Event Tracking</title>
 
   <!-- Google Analytics 4 Tag -->
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CKB57E82JV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-CKB57E82JV');
-</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKB57E82JV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKB57E82JV');
+  </script>
 </head>
 <body>
   <h1>GA4 Event & Conversion Tracking</h1>
@@ -31,6 +29,56 @@
     <button id="purchaseBtn">Complete Purchase</button>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Click Event
+    document.getElementById('clickMeBtn').addEventListener('click', () => {
+      gtag('event', 'button_click', {
+        event_category: 'Interaction',
+        event_label: 'Click Me Button'
+      });
+      alert('Click Me button clicked and event sent to GA4!');
+    });
+
+    // Register Event
+    document.getElementById('registerBtn').addEventListener('click', () => {
+      const email = document.getElementById('emailInput').value;
+      if (email) {
+        gtag('event', 'sign_up', {
+          method: 'email',
+          user_email: email
+        });
+        alert(`Registration event sent for email: ${email}`);
+      } else {
+        alert('Please enter a valid email.');
+      }
+    });
+
+    // Add to Cart
+    document.getElementById('addToCartBtn').addEventListener('click', () => {
+      gtag('event', 'add_to_cart', {
+        items: [{
+          item_id: 'P12345',
+          item_name: 'Cool Product',
+          price: 29.99
+        }]
+      });
+      alert('Product added to cart and event sent to GA4!');
+    });
+
+    // Purchase Event
+    document.getElementById('purchaseBtn').addEventListener('click', () => {
+      gtag('event', 'purchase', {
+        transaction_id: 'T123456',
+        value: 29.99,
+        currency: 'USD',
+        items: [{
+          item_id: 'P12345',
+          item_name: 'Cool Product',
+          price: 29.99
+        }]
+      });
+      alert('Purchase completed and event sent to GA4!');
+    });
+  </script>
 </body>
 </html>
